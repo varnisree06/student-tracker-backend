@@ -1,6 +1,5 @@
 package com.example.student_tracker.controller;
 
-
 import com.example.student_tracker.model.Student;
 import com.example.student_tracker.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/students")
-@CrossOrigin(origins = "http://localhost:5173") // Allow React frontend access
+@CrossOrigin(origins = {
+        "http://localhost:5173",
+        "https://serene-lollipop-f9dda0.netlify.app"
+}) // Allow both local and deployed frontend
 public class StudentController {
 
     @Autowired
