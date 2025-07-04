@@ -10,35 +10,28 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/students")
-@CrossOrigin(origins = {
-        "http://localhost:5173",
-        "https://serene-lollipop-f9dda0.netlify.app"
-}) // Allow both local and deployed frontend
+@CrossOrigin(origins = "https://serene-lollipop-f9dda0.netlify.app") // ✅ Allow your Netlify frontend
 public class StudentController {
 
     @Autowired
     private StudentRepository studentRepository;
 
-    // GET all students
     @GetMapping
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
     }
 
-    // GET one student by ID
     @GetMapping("/{id}")
     public Student getStudentById(@PathVariable Long id) {
         Optional<Student> student = studentRepository.findById(id);
         return student.orElse(null);
     }
 
-    // CREATE a student
     @PostMapping
     public Student createStudent(@RequestBody Student student) {
         return studentRepository.save(student);
     }
 
-    // UPDATE a student
     @PutMapping("/{id}")
     public Student updateStudent(@PathVariable Long id, @RequestBody Student updatedStudent) {
         Optional<Student> optionalStudent = studentRepository.findById(id);
@@ -53,7 +46,6 @@ public class StudentController {
         }
     }
 
-    // DELETE a student
     @DeleteMapping("/{id}")
     public void deleteStudent(@PathVariable Long id) {
         studentRepository.deleteById(id);
